@@ -1,17 +1,21 @@
 {
-  "name": "videoServer",
+  "name": "video-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "video sever",
+  "main": "app.js",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "prestart": "npm run build",
-    "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "start-server": "node app.js"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "@azure/functions": "^1.0.2-beta2",
-    "typescript": "^3.3.3"
+  "author": "kalesh",
+  "license": "ISC",
+  "dependencies": {
+    "coffee-script": "^1.12.7",
+    "connect": "^3.7.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express.io": "^1.1.13",
+    "socket-io": "^1.0.0"
   }
 }
