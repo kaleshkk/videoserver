@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> <%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item">Video Server</li>
+            </ul>
+        </nav>
+    </header>
+    <video id="localVideo" autoplay playsinline controls="false"/>
+
+    <script type="text/javascript">
+        async function getConnectedDevices(type) {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            return devices.filter(device => device.kind === type)
+        }
+
+        // Open camera with at least minWidth and minHeight capabilities
+        async function openCamera(cameraId, minWidth, minHeight) {
+            try {
+                const constraints = {
+                    'audio': {'echoCancellation': true},
+                    'video': {
+                        'deviceId': cameraId,
+                        'minWidth' : minWidth,
+                        'minHeight' : minHeight
+                        }
+                    };
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                return stream;
+            } catch(error) {
+                console.error('Error opening video camera.', error);
+            }
+        }
+
+        const cameras = getConnectedDevices('videoinput');
+
+        cameras.then(function(data) {
+            if (data && data.length > 0) {
+                const stream        = openCamera(data[0].deviceId, 1280, 720);
+
+                stream.then((streamData) => {
+                    const videoElement  = document.querySelector('video#localVideo');
+                    videoElement.srcObject = streamData;
+                });
+                
+            }
+        })
+
+        
+    </script>
+</body>
+
+</html>
