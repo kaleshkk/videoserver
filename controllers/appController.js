@@ -11,3 +11,10 @@ exports.index = (req, res, next) => {
             path       : 'app/chat'
         })
     };
+
+ exports.file = (req, res, next) => {
+        res.render('file',{
+            pageTitle : 'File',
+            path       : 'app/file'
+        })
+    };
